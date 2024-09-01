@@ -35,10 +35,15 @@ public class ClientAccess {
         Document query = new Document("clientId", clientId);
         Document result = collection.find(query).first();
         if (result == null) {
-            throw new ClientNotFoundException(String.format("Client not found %s", clientId));
+            throw new ClientNotFoundException(
+                                String.format("Client not found %s", clientId));
         }
         else {
-            return new Client(result.getString("name"), result.getString("clientId"), result.getString("address"), result.getString("email"), result.getString("phone"));
+            return new Client(result.getString("name"),
+                              result.getString("clientId"),
+                              result.getString("address"),
+                              result.getString("email"),
+                              result.getString("phone"));
         }
     }
 

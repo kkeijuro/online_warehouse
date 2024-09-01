@@ -1,11 +1,14 @@
-package cat.uab.tq.online_warehouse;
+package cat.uab.tq.online_warehouse.articles;
 public class Article {
     final private String _name;
     final private String _description;
     final private double _price;
     final private String _serialNumber;
 
-    public Article(String name, String description, double price, String serialNumber) {
+    public Article(String name, 
+                   String description,
+                   double price,
+                   String serialNumber) {
         _name = name;
         _description = description;
         _price = 0;
