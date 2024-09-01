@@ -1,4 +1,4 @@
-package cat.uab.tq.online_warehouse;
+package cat.uab.tq.online_warehouse.articles;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -30,7 +30,10 @@ public class ArticlesAccess {
         Document result = collection.find(query).first();
         if (result != null) {
             // Convert the Document to an Article object
-            return new Article(result.getString("serialNumber"), result.getString("title"), result.getDouble("price"), result.getString("content"));
+            return new Article(result.getString("serialNumber"), 
+                               result.getString("title"),
+                               result.getDouble("price"),
+                               result.getString("content"));
         } else {
             throw new IllegalArgumentException("Article not found");
         }

@@ -8,7 +8,11 @@ public class Client {
     final private String _phone;
     final private float _discount = 0.05f;
 
-    public Client(String name, String uid, String address, String email, String phone) {
+    public Client(String name,
+                  String uid,
+                  String address,
+                  String email,
+                  String phone) {
         _name = name;
         _uid = uid;
         _address = address;

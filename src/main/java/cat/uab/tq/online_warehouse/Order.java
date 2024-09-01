@@ -16,7 +16,9 @@ public class Order {
     private Client _client;
     private Map<Article, Double> _articles = new HashMap<>();
     
-    public Order(String orderId, ArticlesAccess articleAccess, ClientAccess clientAccess) {
+    public Order(String orderId, 
+                 ArticlesAccess articleAccess,
+                 ClientAccess clientAccess) {
         _orderId = orderId;
     }
 
@@ -32,6 +34,11 @@ public class Order {
     public void addArticle(String articleSn, Double quantity) {
         Article article = _articleAccess.getArticle(articleSn);
         _articles.put(article, quantity);
+    }
+
+    public void removeArticle(String articleSn) {
+        Article article = _articleAccess.getArticle(articleSn);
+        _articles.remove(article);
     }
     
     public Double calculateTotalPrice() {
