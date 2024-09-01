@@ -23,7 +23,7 @@ public class Client {
     public String getUid() {
         return _uid;
     }
-    
+
     public String getAddress() {
         return _address;
     }
