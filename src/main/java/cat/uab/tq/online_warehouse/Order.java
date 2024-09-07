@@ -14,12 +14,14 @@ public class Order {
     private ArticlesAccess _articleAccess;
     private ClientAccess _clientAccess;
     private Client _client;
-    private Map<Article, Double> _articles = new HashMap<>();
+    private Map<Article, Integer> _articles = new HashMap<>();
     
     public Order(String orderId, 
                  ArticlesAccess articleAccess,
                  ClientAccess clientAccess) {
         _orderId = orderId;
+        _articleAccess = articleAccess;
+        _clientAccess = clientAccess;
     }
 
     public Client setClientId(String clientId) {
@@ -31,7 +33,7 @@ public class Order {
         return _orderId;
     }
 
-    public void addArticle(String articleSn, Double quantity) {
+    public void addArticle(String articleSn, Integer quantity) {
         Article article = _articleAccess.getArticle(articleSn);
         _articles.put(article, quantity);
     }
@@ -41,10 +43,17 @@ public class Order {
         _articles.remove(article);
     }
     
+    public Map<Article, Integer> getArticles() {
+        return _articles;
+    }
+
     public Double calculateTotalPrice() {
         double price = 0.0;
-        for (Map.Entry<Article, Double> entry : _articles.entrySet()) {
+        for (Map.Entry<Article, Integer> entry : _articles.entrySet()) {
             price += entry.getKey().getPrice() * entry.getValue();
+        }
+        if(_client != null) {
+            return price*_client.getDiscount();
         }
         return price;
     }
