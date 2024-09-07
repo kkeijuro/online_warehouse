@@ -29,9 +29,6 @@ public class ClientAccess {
     }
 
     public Client getClient(String clientId) {
-        if(clientId == "00000000") {
-
-        }
         Document query = new Document("clientId", clientId);
         Document result = collection.find(query).first();
         if (result == null) {

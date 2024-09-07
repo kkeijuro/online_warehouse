@@ -4,6 +4,9 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 
 public class ArticlesAccess {
@@ -33,10 +36,24 @@ public class ArticlesAccess {
             return new Article(result.getString("serialNumber"), 
                                result.getString("title"),
                                result.getDouble("price"),
-                               result.getString("content"));
+                               result.getString("content"),
+                               result.getInteger("quantity"));
         } else {
             throw new IllegalArgumentException("Article not found");
         }
+    }
+
+    public List<Article> getArticlesAvailable() {
+        // Find all articles
+        List<Article> articles = new ArrayList<>();
+        for (Document doc : collection.find()) {
+            articles.add(new Article(doc.getString("serialNumber"), 
+                                     doc.getString("title"),
+                                     doc.getDouble("price"),
+                                     doc.getString("content"),
+                                     doc.getInteger("quantity")));
+        }
+        return articles;
     }
 
     // Close the MongoDB client connection
