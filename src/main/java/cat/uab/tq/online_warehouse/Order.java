@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cat.uab.tq.online_warehouse.articles.Article;
+import cat.uab.tq.online_warehouse.articles.ArticleNotFoundException;
 import cat.uab.tq.online_warehouse.articles.ArticlesAccess;
 import cat.uab.tq.online_warehouse.clients.Client;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
@@ -34,12 +35,16 @@ public class Order {
     }
 
     public void addArticle(String articleSn, Integer quantity) {
-        Article article = _articleAccess.getArticle(articleSn);
+        Article article = _articleAccess.getArticle(articleSn, quantity);
         _articles.put(article, quantity);
     }
 
     public void removeArticle(String articleSn) {
-        Article article = _articleAccess.getArticle(articleSn);
+        Article article = _articles.keySet().stream()
+                .filter(a -> a.getSerialNumber().equals(articleSn))
+                .findFirst()
+                .orElse(null);
+        if(article == null) {throw new ArticleNotFoundException(articleSn);}
         _articles.remove(article);
     }
     
