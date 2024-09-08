@@ -36,7 +36,7 @@ public class Test05MatchArguments {
         // -> This will not work because Article SN and quantity argument dont match
         // _order.addArticle("12343212", 5);
         // _order.addArticle("12343211", 2);
-        //_order.addArticle("12343212", 3);
+        // _order.addArticle("12343212", 3);
         _order.addArticle("12343212", 2);
         // then
         assert(_order.calculateTotalPrice() == 20.0);
