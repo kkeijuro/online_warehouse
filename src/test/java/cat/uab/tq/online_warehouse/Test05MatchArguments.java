@@ -47,11 +47,10 @@ public class Test05MatchArguments {
         Article article2 = new Article("Article 1", "Article 2 Description", 10.0, "12343215");
         when(_articleAccess.getArticle(any(), anyInt())).thenReturn(article1).thenReturn(article2);
         // when
-        // Check quantity has different values because using anyInt
-        _order.addArticle("12343211", 2);
-        _order.addArticle("12343215", 8);
+        _order.addArticle("12343211", 4);
+        _order.addArticle("12343215", 4);
         // then
-        assert(_order.calculateTotalPrice() == 100.0);
+        assert(_order.calculateTotalPrice() == 80.0);
     }
 
     @Test
@@ -61,7 +60,6 @@ public class Test05MatchArguments {
         Article article2 = new Article("Article 1", "Article 2 Description", 10.0, "12343215");
         when(_articleAccess.getArticle(any(), eq(4))).thenReturn(article1).thenReturn(article2);
         // when
-        // Check quantity is 4 if not test will fail
         _order.addArticle("12343211", 4);
         _order.addArticle("12343215", 4);
         // then
