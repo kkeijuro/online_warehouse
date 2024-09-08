@@ -33,7 +33,9 @@ public class Test05MatchArguments {
         Article article = new Article("Article 1", "Article 1 Description", 10.0, "12343212");
         when(_articleAccess.getArticle("12343212", 2)).thenReturn(article);
         // when
-        // -> This will not work because Article SN argument dont match
+        // -> This will not work because Article SN and quantity argument dont match
+        // _order.addArticle("12343212", 5);
+        // _order.addArticle("12343211", 2);
         //_order.addArticle("12343212", 3);
         _order.addArticle("12343212", 2);
         // then
@@ -47,7 +49,7 @@ public class Test05MatchArguments {
         Article article2 = new Article("Article 1", "Article 2 Description", 10.0, "12343215");
         when(_articleAccess.getArticle(any(), anyInt())).thenReturn(article1).thenReturn(article2);
         // when
-        // Check quantity has different values because using anyInt
+        // Check quantity can have different values because using anyInt
         _order.addArticle("12343211", 2);
         _order.addArticle("12343215", 8);
         // then
@@ -58,10 +60,10 @@ public class Test05MatchArguments {
     public void checkOrderPriceWhenAddMultipleArticleAlternative() {
         // given
         Article article1 = new Article("Article 1", "Article 1 Description", 10.0, "12343212");
-        Article article2 = new Article("Article 1", "Article 2 Description", 10.0, "12343215");
+        Article article2 = new Article("Article 2", "Article 2 Description", 10.0, "12343215");
         when(_articleAccess.getArticle(any(), eq(4))).thenReturn(article1).thenReturn(article2);
         // when
-        // Check quantity is 4 if not test will fail
+        // Check quantity must be 4 if not test will fail
         _order.addArticle("12343211", 4);
         _order.addArticle("12343215", 4);
         // then
