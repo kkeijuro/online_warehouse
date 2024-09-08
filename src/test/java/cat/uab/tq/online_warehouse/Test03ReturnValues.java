@@ -12,7 +12,7 @@ import cat.uab.tq.online_warehouse.articles.Article;
 import cat.uab.tq.online_warehouse.articles.ArticlesAccess;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
 
-public class Test03MockitoReturnValues {
+public class Test03ReturnValues {
     
     private ShopManager _shop_manager;
     private ArticlesAccess _article_access;
@@ -30,9 +30,9 @@ public class Test03MockitoReturnValues {
         // given
         when(_article_access.getArticlesAvailable()).thenReturn(
                                 List.of(
-                                    new Article("Article 1", "Article 1 Description", 10.0, "12343212", 10),
-                                    new Article("Article 2", "Article 2 Description", 20.0, "43542443", 20),
-                                    new Article("Article 3", "Article 3 Description", 30.0, "78214345", 30)));
+                                    new Article("Article 1", "Article 1 Description", 10.0, "12343212"),
+                                    new Article("Article 2", "Article 2 Description", 20.0, "43542443"),
+                                    new Article("Article 3", "Article 3 Description", 30.0, "78214345")));
         // when
         List<Article> values = _shop_manager.getArticles();
         // then
@@ -45,11 +45,11 @@ public class Test03MockitoReturnValues {
         // given
         when(_article_access.getArticlesAvailable())
                                 .thenReturn(List.of(
-                                    new Article("Article 1", "Article 1 Description", 10.0, "12343212", 10)))
+                                    new Article("Article 1", "Article 1 Description", 10.0, "12343212")))
                                 .thenReturn(List.of(
-                                            new Article("Article 1", "Article 1 Description", 10.0, "12343212", 10),
-                                            new Article("Article 2", "Article 2 Description", 20.0, "43542443", 20),
-                                            new Article("Article 3", "Article 3 Description", 30.0, "78214345", 30)));
+                                            new Article("Article 1", "Article 1 Description", 10.0, "12343212"),
+                                            new Article("Article 2", "Article 2 Description", 20.0, "43542443"),
+                                            new Article("Article 3", "Article 3 Description", 30.0, "78214345")));
         // when
         List<Article> firstValues = _shop_manager.getArticles();
         List<Article> secondValues = _shop_manager.getArticles();

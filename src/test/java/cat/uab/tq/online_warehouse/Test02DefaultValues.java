@@ -12,7 +12,7 @@ import cat.uab.tq.online_warehouse.articles.Article;
 import cat.uab.tq.online_warehouse.articles.ArticlesAccess;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
 
-public class Test02MockitoDefaultValues {
+public class Test02DefaultValues {
     
     private ShopManager _shop_manager;
     private ArticlesAccess _article_access;

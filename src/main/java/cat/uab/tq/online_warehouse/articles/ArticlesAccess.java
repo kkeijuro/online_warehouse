@@ -27,7 +27,7 @@ public class ArticlesAccess {
         collection = database.getCollection(COLLECTION);
     }
 
-    public Article getArticle(String serialNumber) {
+    public Article getArticle(String serialNumber, int quantity) {
         // Find the article by serial number
         Document query = new Document("serialNumber", serialNumber);
         Document result = collection.find(query).first();
@@ -36,8 +36,7 @@ public class ArticlesAccess {
             return new Article(result.getString("serialNumber"), 
                                result.getString("title"),
                                result.getDouble("price"),
-                               result.getString("content"),
-                               result.getInteger("quantity"));
+                               result.getString("content"));
         } else {
             throw new IllegalArgumentException("Article not found");
         }
@@ -50,8 +49,7 @@ public class ArticlesAccess {
             articles.add(new Article(doc.getString("serialNumber"), 
                                      doc.getString("title"),
                                      doc.getDouble("price"),
-                                     doc.getString("content"),
-                                     doc.getInteger("quantity")));
+                                     doc.getString("content")));
         }
         return articles;
     }

@@ -4,18 +4,15 @@ public class Article {
     final private String _description;
     final private double _price;
     final private String _serialNumber;
-    final private int _quantity;
 
     public Article(String name, 
                    String description,
                    double price,
-                   String serialNumber,
-                   int quantity) {
+                   String serialNumber) {
         _name = name;
         _description = description;
         _price = price;
         _serialNumber = serialNumber;
-        _quantity = quantity;
     }
     
     public String getName() {
@@ -32,9 +29,5 @@ public class Article {
 
     public String getSerialNumber() {
         return _serialNumber;
-    }
-    
-    public int getQuantity() {
-        return _quantity;
     }
 }
