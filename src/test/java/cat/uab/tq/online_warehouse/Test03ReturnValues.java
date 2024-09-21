@@ -17,12 +17,18 @@ public class Test03ReturnValues {
     private ShopManager _shop_manager;
     private ArticlesAccess _article_access;
     private ClientAccess _client_access;
+    private PaymentPlatform _payment_platform;
+    private OrderManagement _order_management;
 
     @BeforeEach
     public void setUp() {
         _article_access = mock(ArticlesAccess.class);
         _client_access = mock(ClientAccess.class);
-        _shop_manager = new ShopManager(_article_access, _client_access);
+        _order_management = mock(OrderManagement.class);
+        _shop_manager = new ShopManager(_article_access,
+                                        _client_access,
+                                        _payment_platform,
+                                        _order_management);
     }
 
     @Test

@@ -26,7 +26,7 @@ public class Test04ExceptionRaise {
         _articleAccess = mock(ArticlesAccess.class);
         _clientAccess = mock(ClientAccess.class);
         
-        _order = new Order("1", _articleAccess, _clientAccess);
+        _order = new Order(_articleAccess, _clientAccess);
     }
 
     @Test
