@@ -14,24 +14,28 @@ import cat.uab.tq.online_warehouse.clients.ClientAccess;
 
 public class Test02DefaultValues {
     
-    private ShopManager _shop_manager;
-    private ArticlesAccess _article_access;
-    private ClientAccess _client_access;
+    private ShopManager _shopManager;
+    private ArticlesAccess _articleAccess;
+    private ClientAccess _clientAccess;
+    private PaymentPlatform _paymentPlatform;
+    private OrderManagement _orderManagement;
 
     @BeforeEach
     public void setUp() {
-        _article_access = mock(ArticlesAccess.class);
+        _articleAccess = mock(ArticlesAccess.class);
 
-        _shop_manager = new ShopManager(_article_access, _client_access);
+        _shopManager = new ShopManager(_articleAccess, 
+                                        _clientAccess,
+                                        _paymentPlatform,
+                                        _orderManagement);
     }
 
     @Test
-    public void shouldReturnEmptyList() {
+    public void shouldReturnEmptyListWhenNoArticlesAvailable() {
         // given
         // when
-        List<Article> values = _shop_manager.getArticles();
+        List<Article> values = _shopManager.getArticles();
         // then
          assertTrue(values.isEmpty(), "The list should be empty");
-
     }
 }

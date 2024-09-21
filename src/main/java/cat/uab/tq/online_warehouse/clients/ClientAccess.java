@@ -4,6 +4,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import java.util.UUID;
+
 import org.bson.Document;
 
 public class ClientAccess {
@@ -21,7 +24,8 @@ public class ClientAccess {
     }
 
     // Create a new client document
-    public void createClient(String clientId, String name, String email) {
+    public void createClient(String name, String email) {
+        String clientId = UUID.randomUUID().toString();
         Document doc = new Document("clientId", clientId)
                         .append("name", name)
                         .append("email", email);

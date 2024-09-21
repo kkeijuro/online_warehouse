@@ -10,17 +10,20 @@ import cat.uab.tq.online_warehouse.clients.Client;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
 
 public class Order {
-    
-    private String _orderId;
+    public enum Status {
+        OPEN,
+        PROCESSING,
+        COMPLETED,
+        CANCELLED;
+    }
     private ArticlesAccess _articleAccess;
     private ClientAccess _clientAccess;
     private Client _client;
     private Map<Article, Integer> _articles = new HashMap<>();
+    private Status _status = Status.OPEN;
     
-    public Order(String orderId, 
-                 ArticlesAccess articleAccess,
+    public Order(ArticlesAccess articleAccess,
                  ClientAccess clientAccess) {
-        _orderId = orderId;
         _articleAccess = articleAccess;
         _clientAccess = clientAccess;
     }
@@ -30,10 +33,6 @@ public class Order {
         return _client;
     }
     
-    public String getOrderId() {
-        return _orderId;
-    }
-
     public void addArticle(String articleSn, Integer quantity) {
         Article article = _articleAccess.getArticle(articleSn, quantity);
         _articles.put(article, quantity);
@@ -61,5 +60,19 @@ public class Order {
             return price*_client.getDiscount();
         }
         return price;
+    }
+
+    public void cancel() {
+        if(_status == Status.COMPLETED) {
+            throw new IllegalStateException("Cannot cancel a completed order");
+        }
+        _status = Status.CANCELLED;
+    }
+    public boolean isPaid() {
+        return _status == Status.COMPLETED;
+    }
+    
+    public void setPaid() {
+        _status = Status.COMPLETED;
     }
 }

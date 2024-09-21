@@ -24,11 +24,11 @@ public class Test05MatchArguments {
         _articleAccess = mock(ArticlesAccess.class);
         _clientAccess = mock(ClientAccess.class);
         
-        _order = new Order("1", _articleAccess, _clientAccess);
+        _order = new Order(_articleAccess, _clientAccess);
     }
 
     @Test
-    public void checkOrderPriceWhenAddArticle() {
+    public void shouldCalculatePriceCorrectlyWhenAddArticle() {
         // given
         Article article = new Article("Article 1", "Article 1 Description", 10.0, "12343212");
         when(_articleAccess.getArticle("12343212", 2)).thenReturn(article);
@@ -43,10 +43,10 @@ public class Test05MatchArguments {
     }
 
     @Test
-    public void checkOrderPriceWhenAddMultipleArticle() {
+    public void shouldCalculatePriceCorrectlyWhenAddMultipleArticle() {
         // given
         Article article1 = new Article("Article 1", "Article 1 Description", 10.0, "12343212");
-        Article article2 = new Article("Article 1", "Article 2 Description", 10.0, "12343215");
+        Article article2 = new Article("Article 2", "Article 2 Description", 10.0, "12343215");
         when(_articleAccess.getArticle(any(), anyInt())).thenReturn(article1).thenReturn(article2);
         // when
         // Check quantity can have different values because using anyInt
@@ -57,7 +57,7 @@ public class Test05MatchArguments {
     }
 
     @Test
-    public void checkOrderPriceWhenAddMultipleArticleAlternative() {
+    public void shouldCalculatePriceCorrectlyWhenAddMultipleArticleAlternative() {
         // given
         Article article1 = new Article("Article 1", "Article 1 Description", 10.0, "12343212");
         Article article2 = new Article("Article 2", "Article 2 Description", 10.0, "12343215");
