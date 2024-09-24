@@ -1,6 +1,8 @@
 # Mockito Usage Example
 
-This project demonstrates how to use Mockito for unit testing in Java. The provided code includes examples of mocking dependencies and verifying interactions using Mockito.
+This project demonstrates how to use Mockito for unit testing in Java. 
+
+The provided code includes examples of mocking dependencies and verifying interactions using Mockito.
 
 ## Prerequisites
 

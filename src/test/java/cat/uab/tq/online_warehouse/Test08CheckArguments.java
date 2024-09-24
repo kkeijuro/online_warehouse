@@ -1,10 +1,13 @@
 package cat.uab.tq.online_warehouse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -58,8 +61,10 @@ public class Test08CheckArguments {
         _order.removeArticles("12343212", 50);
         _order.removeArticles("12343212", 50);
         //then
+        verify(_articleAccess, times(1)).getArticle(any(), anyInt());
         verify(_articleAccess, times(2)).updateArticleQuantity(eq("12343212"), _quantityCaptor.capture());
         List<Integer> quantities = _quantityCaptor.getAllValues();
         assertEquals(quantities, expectedQuantities);
+        verifyNoMoreInteractions(_articleAccess);
     }
 }
