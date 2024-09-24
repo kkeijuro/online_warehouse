@@ -48,7 +48,11 @@ public class ArticlesAccess {
     public void updateArticleQuantity(String serialNumber, Integer newQuantity) {
         // Build the query to find the article by serial number
         Document query = new Document("serialNumber", serialNumber);
-        updateDocumentQuantity(query, newQuantity);
+        Document result = collection.find(query).first();
+        if(result == null) {
+            throw new ArticleNotFoundException("Article not found");
+        }
+        updateDocumentQuantity(result, newQuantity);
     }
 
     private void updateDocumentQuantity(Document articleDocument, int newQuantity) {
