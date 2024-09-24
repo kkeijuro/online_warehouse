@@ -3,6 +3,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,30 @@ public class ArticlesAccess {
         // Find the article by serial number
         Document query = new Document("serialNumber", serialNumber);
         Document result = collection.find(query).first();
-        if (result != null) {
-            // Convert the Document to an Article object
-            return new Article(result.getString("serialNumber"), 
+        if(result == null) {
+            throw new ArticleNotFoundException("Article not found");
+        }
+        if(quantity > result.getInteger(result, quantity)) {
+            throw new NotEnoughArticlesException("Not enough articles");
+        }
+        updateDocumentQuantity(result, quantity);
+        return new Article(result.getString("serialNumber"), 
                                result.getString("title"),
                                result.getDouble("price"),
                                result.getString("content"));
-        } else {
+    }
+
+    public void updateArticleQuantity(String serialNumber, Integer newQuantity) {
+        // Build the query to find the article by serial number
+        Document query = new Document("serialNumber", serialNumber);
+        updateDocumentQuantity(query, newQuantity);
+    }
+
+    private void updateDocumentQuantity(Document articleDocument, int newQuantity) {
+        Document update = new Document("$set", new Document("quantity", newQuantity));
+        // Apply the update
+        UpdateResult result = collection.updateOne(articleDocument, update);
+        if (result.getMatchedCount() == 0) {
             throw new IllegalArgumentException("Article not found");
         }
     }

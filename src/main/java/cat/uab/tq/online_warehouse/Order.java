@@ -32,19 +32,25 @@ public class Order {
         _client = _clientAccess.getClient(clientId);
         return _client;
     }
-    
+
     public void addArticle(String articleSn, Integer quantity) {
         Article article = _articleAccess.getArticle(articleSn, quantity);
         _articles.put(article, quantity);
     }
 
-    public void removeArticle(String articleSn) {
+    public void removeArticles(String articleSn, Integer quantity) {
         Article article = _articles.keySet().stream()
                 .filter(a -> a.getSerialNumber().equals(articleSn))
                 .findFirst()
                 .orElse(null);
         if(article == null) {throw new ArticleNotFoundException(articleSn);}
-        _articles.remove(article);
+        int actual_quantity = findArticleQuantity(article);
+        if(actual_quantity <= quantity) {
+            _articles.remove(article);
+        }
+        int newQuantity = actual_quantity - quantity;
+        updateArticleQuantity(article, newQuantity);
+        _articleAccess.updateArticleQuantity(articleSn, newQuantity);
     }
     
     public Map<Article, Integer> getArticles() {
@@ -60,6 +66,18 @@ public class Order {
             return price*_client.getDiscount();
         }
         return price;
+    }
+
+    private Integer findArticleQuantity(Article article) {
+        if (_articles.containsKey(article)) {
+            return _articles.get(article);
+        } else {
+            return null; // or throw an exception, or return a default value
+        }
+    }
+
+    private Integer updateArticleQuantity(Article article, Integer newQuantity) {
+        return _articles.put(article, newQuantity);
     }
 
     public void cancel() {

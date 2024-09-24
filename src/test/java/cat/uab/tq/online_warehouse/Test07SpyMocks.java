@@ -1,12 +1,12 @@
 package cat.uab.tq.online_warehouse;
 
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Or;
 
 import cat.uab.tq.online_warehouse.articles.ArticlesAccess;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
@@ -63,7 +63,9 @@ public class Test07SpyMocks {
         String orderId = "1";
         // when
         // Force spy to return order
-        when(_orderManagement.get(orderId)).thenReturn(order);
+        doReturn(order).when(_orderManagement).get(orderId);
+        //Its the same as:
+        //when(_orderManagement.get(orderId)).thenReturn(order);
         _shopManager.cancelOrder(orderId);
         // then
     }
