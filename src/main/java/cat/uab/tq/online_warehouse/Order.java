@@ -9,6 +9,8 @@ import cat.uab.tq.online_warehouse.articles.ArticlesAccess;
 import cat.uab.tq.online_warehouse.clients.Client;
 import cat.uab.tq.online_warehouse.clients.ClientAccess;
 
+// very big line to check that checkstyle is not working when line is too long for example, this line is too long and checkstyle should complain about it
+
 public class Order {
     public enum Status {
         OPEN,
